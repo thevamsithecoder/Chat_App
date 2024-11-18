@@ -3,19 +3,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
+const dotenv = require("dotenv");
 const ChatMessage = require("./models/ChatMessage");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+dotenv.config();
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
 
-const connectDB = mongoose.connect("mongodb+srv://vamsikotnisai:sgYLGM8IqRaodc6q@cluster0.4ohf9.mongodb.net/chat_app");
+const connectDB = mongoose.connect(process.env.MONGO_URL);
 connectDB.then(()=> {
 	console.log("Connected to MongoDB")
 })
