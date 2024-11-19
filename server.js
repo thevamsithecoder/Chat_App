@@ -5,14 +5,17 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const ChatMessage = require("./models/ChatMessage");
-
+const path = require("path"); //default 
 const app = express();
 const PORT = process.env.PORT || 5000;
 dotenv.config();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
+app.use(express.static(path.join(__dirname, "./Client/dist")));
+app.use("*", function(req,res) {
+	res.sendFile(path.join(__dirname, "./Client/dist/index.html"))
+  })
 // MongoDB Connection
 
 const connectDB = mongoose.connect(process.env.MONGO_URL);
